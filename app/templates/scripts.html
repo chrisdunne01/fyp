@@ -1,0 +1,57 @@
+<html>
+<body>
+<h1>SCRIPTS</h1>
+<form action = "/upload" method = "POST" enctype = "multipart/form-data">
+    <!--GET FILE NAME-->
+    <input type = "file" name="uploaded_file" required/>
+
+     <label>Script Name: </label>
+    <input type="text" name="script_name" required/>
+
+
+    <label>Description: </label>
+    <input type="text" name="description" required/>
+
+    <label>Parameters: </label>
+    <input type="text" name="parameters" required/>
+
+    <label>Documentation: </label>
+    <input type="text" name="documentation" required/>
+
+    <input type = "submit"/>
+</form>
+
+<h1>Scripts</h1>
+<table>
+  {% for script in scripts %}
+  <tr>
+    <td>
+      {{script.name}}
+      {{script.description}}
+      {{script.parameters}}
+      {{script.documentation}}
+    </td>
+    <td>
+      <!--UPDATE THE SCRIPT-->
+      <form method="POST" action="./update_scripts" style="display: inline">
+        <input type="hidden" value="{{script.name}}" name="old_script_name">
+        <input type="text" value="{{script.name}}" name="new_script_name">
+        <input type="submit" value="Update">
+      </form>
+    </td>
+    <td>
+      <!--DELETE THE SCRIPT-->
+      <form method="POST" action="./delete_scripts" style="display: inline">
+        <input type="hidden" value="{{script.name}}" name="script_name">
+        <input type="submit" value="Delete">
+      </form>
+    </td>
+
+  </tr>
+  {% endfor %}
+</table>
+
+
+
+</body>
+</html>
